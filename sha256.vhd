@@ -65,7 +65,7 @@ ARCHITECTURE Behavioral OF sha256 IS
     --type messageScheduleType is array (15 downto 0) of std_logic_vector(31 downto 0);
     signal messageSchedule : words64_32 := (x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000",x"00000000");
     --step 8
-    signal outputIntermediate : std_logic_vector(255 downto 0);
+    signal outputIntermediate : std_logic_vector(255 downto 0) := x"0000000000000000000000000000000000000000000000000000000000000000";
     
     type state_type is (READY, ADD1PADAPPENDLENGTH, RESETHASHES, MSGSCHEDULESTART, MSGSCHEDULELOOP, SETLETTERS, COMPRESSIONLOOP, MODIFYCONCAT);
     signal PS, NS : state_type;
@@ -73,22 +73,6 @@ ARCHITECTURE Behavioral OF sha256 IS
     signal msgScheduleIter : integer := 16; --starts at 16
     signal compressionIter : integer := 0; --start at 0
     
-    
---    COMPONENT vga_sync IS
---        PORT (
---            pixel_clk : IN STD_LOGIC;
---            red_in    : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
---            green_in  : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
---            blue_in   : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
---            red_out   : OUT STD_LOGIC_VECTOR (3 DOWNTO 0);
---            green_out : OUT STD_LOGIC_VECTOR (3 DOWNTO 0);
---            blue_out  : OUT STD_LOGIC_VECTOR (3 DOWNTO 0);
---            hsync : OUT STD_LOGIC;
---            vsync : OUT STD_LOGIC;
---            pixel_row : OUT STD_LOGIC_VECTOR (10 DOWNTO 0);
---            pixel_col : OUT STD_LOGIC_VECTOR (10 DOWNTO 0)
---        );
---    END COMPONENT;
     COMPONENT clk_wiz_0 is
         PORT (
             clk_in1  : in std_logic;
