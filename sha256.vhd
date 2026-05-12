@@ -72,13 +72,13 @@ ARCHITECTURE Behavioral OF sha256 IS
     --6 bits, 63 values: 0 to 63
     signal msgScheduleIter : integer := 16; --starts at 16
     signal compressionIter : integer := 0; --start at 0
-    
-    COMPONENT clk_wiz_0 is
-        PORT (
-            clk_in1  : in std_logic;
-            clk_out1 : out std_logic
-        );
-    END COMPONENT;
+
+--    COMPONENT clk_wiz_0 is
+--        PORT (
+--            clk_in1  : in std_logic;
+--            clk_out1 : out std_logic
+--        );
+--    END COMPONENT;
 BEGIN
 --type state_type is (READY, ADD1PADAPPENDLENGTH, RESETHASHES, MSGSCHEDULESTART, 
 --MSGSCHEDULELOOP, SETLETTERS, COMPRESSIONLOOP, MODIFYCONCAT);
