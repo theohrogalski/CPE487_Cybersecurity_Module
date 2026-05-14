@@ -1,2 +1,5 @@
 This version sort of works.  It responds to btnr for resets and write_bistream actually passes, but the output is inconsistent and choppy and not displaying properly.
 At least the hash sort of updates
+Major changes:
+- Updated next state (NS) logic in FSM with the help of Professor Yett
+- Realized that I hadn't uncommented btn0 and btnr in the .xdc file. ;_;
