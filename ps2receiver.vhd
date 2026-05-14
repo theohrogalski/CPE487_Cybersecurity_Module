@@ -20,7 +20,7 @@ architecture keyboard of PS2RECEIVER is
     begin
 process(kclk)
 variable cnt : integer:=0;
-variable release : std_logic :='1';
+variable release : integer :=1;
 begin 
 if falling_edge(kclk) then
     case(cnt) is
@@ -59,19 +59,19 @@ if falling_edge(kclk) then
         cnt:=cnt+1;
 
     when 9 => 
-    release:='1';
+    if release /= 0 then release := release - 1;
+    end if;
     if datacur = x"f0" then 
-     release:='0';
+     release:=2;
     end if;
     
-    if release = '1' then
-    if (datacur/=dataprev) then 
+    if release = 0 then
     
         dataprev <= datacur;
         keycode <=  keycode(23 downto 0) & datacur;
+    
+    end if;
     cnt:=cnt+1;
-    end if;
-    end if;
     when 10 => 
     cnt := 0;
     
