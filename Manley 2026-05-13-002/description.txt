@@ -1,0 +1,1 @@
+This is a stable version for the VGA and Keyboard functionality, but is still in the process of getting the sha256.vhd module outputting properly
