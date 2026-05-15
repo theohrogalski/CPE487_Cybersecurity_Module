@@ -199,8 +199,21 @@ keycodeout : out std_logic_vector(31 downto 0):
 
 
 ## Summary of Development Process
-The project 
+The project followed the proceeding structure, with each member contributing according to their interests:
+![image](Project_Flow.png)
+Timeline:
+![image][CPE487_Table.png]
 
+Difficulties Encountered:
+Many major difficulties were encountered in the course of the project, the first being the overly ambitious scope. The usage of a sending/receiving antenna for encrypting received messages and transmission presented excessive technical difficulties, which caused the project scope to be scrapped. The following challenges were the most notable for each module:
+- SHA256 Module: Given the huge amoutn of operations present in SHA256, the correct implementation, especially with the large lead time present in VHDL due to the syntehsis, implementation and generate bitstream processes caused major difficulties. This led to the completion of the project being delayed to the last minute.
+- Keyboard Module: Although the conversion of the keyboard module from verilog tro VHDL presented difficulties in learning how to read a new HDL, the most difficult aspect of the module was by far the filtering. The slow feedback present in VHDL and unclear issues resulting from changes to the logical structure of the keyboard module resulted in challenges that caused the delay of project completion. This issue was solved by slowing down the iteration process and pair programming.
+- VGA Sync: The VGA Sync module faced the tremendous challenge of converting every hexcode into an ASCII character, which was done by hand, a long process which was faced with many fragility issues.
+
+
+System Integration:
+![image][System_Integration.png]
+The above is a high-level description of the system, with the connections between the VHDL modules described.
 
 A description of the expected behavior of the project, attachments needed (speaker module, VGA connector, etc.), related images/diagrams, etc. (10 points of the Submission category)
 The more detailed the better – you all know how much I love a good finite state machine and Boolean logic, so those could be some good ideas if appropriate for your system. If not, some kind of high level block diagram showing how different parts of your program connect together and/or showing how what you have created might fit into a more complete system could be appropriate instead.
