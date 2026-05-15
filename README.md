@@ -8,9 +8,7 @@ The expected behavior of the system is as follows, first in sentences and then i
 ### Written Description 
 The user connects a keyboard and monitor to the FPGA  using the keyboard’s USB cable and VGA HDMI Adapter respectively. Then, they may upload the code onto the board, and will be able to type an arbitrary 32 bit (8 hex characters, 4 bytes, 4 ASCII characters) into it. As they type, they will see both the inputted text from the keyboard on the screen in ASCII as well as the plaintext run through the well known SHA-256 hashing algorithm as in the following image:
 
-## INCLUDE IMAGE HERE
 
-### Bullet Point Description
 
 
 
@@ -209,6 +207,39 @@ keycodeout : out std_logic_vector(31 downto 0):
 
 
 ## VGA Module
+The VGA module starts with a large font array declaration, where each element of the array is a set of vectors defining the 5 by 7 character (where 0 is a blank pixel and 1 is a turned on pixel). Then, four helper functions are defined: iso8859_to_font, hex_digit_to_font, get_char_bit, and get_digit_char. iso8859_to_font defines a case converting the 26 uppercase letters, 10 digits, certain punctuation, and the spacebar character. The function uses the ISO 8859 standard for encoding the letters, as those are the received outputs from the keyboard. The hex_digit_to_font function converts an input hex digit to the requisite character for ease of user access (the get_digit_char function also does this, but for the decimal digits). Finally, the get_char_bit function retrieves the bits from a given array member. 
+The actual VGA outputting is handled by the text_draw process, which is relatively simple. There are two if statements outputting to two separate levels of the screen. One if statement outputs the input plaintext from the keyboard, and the other outputs the hash output of the encryption module. If someone were to expand on this project in the future, a good place to start would be to add compatibility for an arbitrarily long text output, with some requisite method of scrolling through the output.
+
+A summary of the steps to get the project to work in Vivado and on the Nexys board (5 points of the Submission category)
+
+
+
+Description of inputs from and outputs to the Nexys board from the Vivado project (10 points of the Submission category)
+
+Inputs: 
+Clock: 
+100MHZCLK - A 100 MHz clock coming from the board
+
+USB HID: 
+PS2_CLK - The board’s built-in clock for the USB-A port (which is also referred to as the PS/2 port in the board’s master constraints file)
+PS2_DATA - The data input from the USB-A port
+
+
+
+7-Segment Display: 
+SEG[6:0] - An array containing the seven segments for any given anode of the built-in display
+DP - Decimal point for the array (unused for our purposes)
+AN[7:0] - The anodes corresponding to each of the eight digits of the display
+
+VGA Connector: 
+VGA_R[3:0] - The four bits of the red output for the VGA connector
+VGA_G[3:0] - The four bits of the green output for the VGA connector
+VGA_B[3:0] - The four bits of the blue output for the VGA connector
+VGA_HS - The horizontal sync speed
+VGA_VS - the vertical sync speed
+
+USB-RS232 Interface: 
+UART_TXD - The USB-RS232’s transmit pin
 
 
 
@@ -228,24 +259,3 @@ Many major difficulties were encountered in the course of the project, the first
 System Integration:
 ![image][System_Integration.png]
 The above is a high-level description of the system, with the connections between the VHDL modules described.
-
-A description of the expected behavior of the project, attachments needed (speaker module, VGA connector, etc.), related images/diagrams, etc. (10 points of the Submission category)
-The more detailed the better – you all know how much I love a good finite state machine and Boolean logic, so those could be some good ideas if appropriate for your system. If not, some kind of high level block diagram showing how different parts of your program connect together and/or showing how what you have created might fit into a more complete system could be appropriate instead.
-
-
-
-
-
-A summary of the steps to get the project to work in Vivado and on the Nexys board (5 points of the Submission category)
-Description of inputs from and outputs to the Nexys board from the Vivado project (10 points of the Submission category)
-As part of this category, if using starter code of some kind (discussed below), you should add at least one input and at least one output appropriate to your project to demonstrate your understanding of modifying the ports of your various architectures and components in VHDL as well as the separate .xdc constraints file.
-Images and/or videos of the project in action interspersed throughout to provide context (10 points of the Submission category)
-“Modifications” (15 points of the Submission category)
-If building on an existing lab or expansive starter code of some kind, describe your “modifications” – the changes made to that starter code to improve the code, create entirely new functionalities, etc. Unless you were starting from one of the labs, please share any starter code used as well, including crediting the creator(s) of any code used. It is perfectly ok to start with a lab or other code you find as a baseline, but you will be judged on your contributions on top of that pre-existing code!
-If you truly created your code/project from scratch, summarize that process here in place of the above.
-Conclude with a summary of the process itself – who was responsible for what components (preferably also shown by each person contributing to the github repository!), the timeline of work completed, any difficulties encountered and how they were solved, etc. (10 points of the Submission category)
-And of course, the code itself separated into appropriate .vhd and .xdc files. (50 points of the Submission category; based on the code working, code complexity, quantity/quality of modifications, etc.)
-You are not really expected to be github experts – as long as one of you can confidently create the repository and help others add to it, that should be sufficient. If no group members fall under this criteria, discuss with me as soon as possible.
-This is a group assignment, and for the most part you are graded as a group. I reserve the right to modify single student grades for extenuating circumstances, such as a clear lack of participation from a group member. You are allowed to rely on the expertise of your group members in certain aspects of the project, but you should all have at least a cursory understanding of all aspects of your project.
-One additional note: You MAY use genAI or similar tools to assist with formatting your github repo, to create starter code that you then further modify to meet your final project objectives, or to assist you for troubleshooting or similar tasks. You MUST cite any occurrences of you doing so. You MAY NOT use genAI to do your project for you, or to completely write your repo's content for you. GenAI does not know what you actually did for your project - only you do!
-
