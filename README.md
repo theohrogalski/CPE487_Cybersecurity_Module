@@ -48,6 +48,7 @@ Filtration Mechanism
 
 # Input, Output Description for Each Module 
 ## SHA-256 Module
+The SHA-256 Module is meant to take in input of a 440-bit plaintext (the plaintext allowed for one "chunk" in the SHA-256 algorithm)
 ## VGA Module
 ## Keyboard Module
 ### Introduction 
