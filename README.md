@@ -275,7 +275,7 @@ kclk ```: in std_logic: This is the 50MHZ clock
 kdata``` :in std_logic: This is the PS2_DATA signal that takes in input from the stream from the keyboard.
 ```vhdl
 keycodeout ```: out std_logic_vector(31 downto 0): This signal is the 32 bit vector that is fed into the SHA-256 Module and the displays on the board. To extend, merely change the 31 to a larger number (up to 140 bits).
-
+```
 
 
 
