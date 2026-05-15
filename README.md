@@ -365,5 +365,5 @@ Many major difficulties were encountered in the course of the project, the first
 
 
 System Integration:
-![image][Images/System_Integration.png]
+![image](Images/System_Integration.png)
 The above is a high-level description of the system, with the connections between the VHDL modules described.
