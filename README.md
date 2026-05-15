@@ -75,19 +75,92 @@ PS2_DATA:in std_logic:
 SEG : out std_logic_vector(6 downto 0:
 The SEG signal (fed into the constraints file) activates the various line segments present in the hexidecimal display, allowing the user to view the keyboard input on the hexadecimal output.
 
-
 AN  : out std_logic_vector(7 downto 0):
 The AN signal, fed into the AN signal in the constraints file, controls whether each segment in the 8 hexadecimal character display is on. 
-```
+DP : out std_logic: The DP signal, set to permanently be one, is fed to the constraints file. 
 
-```
-DP : out std_logic:
 
 UART_TXD : out std_logic:
-
+UART_TXD converts the parallel bit stream coming from the keyboard into a std_signal. It is fed into the constraints.
 
 Seg7display.vhd
-x : in std_logic_vector(31 downto 0):
+x : in std_logic_vector(31 downto 0): 
+The x vector represents the keycode data. It uses the digit variable, which loops through each four bit portion of x. 
+```
+process(clk) 
+variable digit : std_logic_vector(3 downto 0);
+
+begin
+if rising_edge(clk) then
+case(s) is
+when "000" => 
+digit:=x(3 downto 0);
+when "001" =>
+digit:=x(7 downto 4);
+
+when "010" =>
+digit:=x(11 downto 8);
+
+when "011" =>
+digit:=x(15 downto 12);
+
+when "100" =>
+digit:=x(19 downto 16);
+
+when "101" =>
+digit:=x(23 downto 20);
+
+when "110" =>
+digit:=x(27 downto 24);
+
+when "111" =>
+digit:=x(31 downto 28);
+
+when others =>
+digit:=x(3 downto 0);
+end case;
+case(digit) is 
+when x"0" =>
+SEG<="1000000";
+when x"1" =>
+SEG<="1111001";
+
+when x"2" =>
+SEG<="0100100";
+
+when x"3" =>
+SEG<="0110000";
+
+when x"4" =>
+SEG<="0011001";
+when x"5" =>
+SEG<="0010010";
+when x"6" =>
+SEG<="0000010";
+when x"7" =>
+SEG<="1111000";
+when x"8" =>
+SEG<="0000000";
+when x"9" =>
+SEG<="0010000";
+when x"A" =>
+SEG<="0001000";
+when x"B" =>
+SEG<="0000011";
+when x"C" =>
+SEG<="1000110";
+when x"D" =>
+SEG<="0100001";
+when x"E" =>
+SEG<="0000110";
+when x"F" =>
+SEG<="0001110";
+when others => SEG<="0000000";
+end case;
+end if;
+end process;
+```
+This process converts the digit signal into a value on the x vector, which is fed into the x vector, which is then displayed as data on the board.
 
 
 clk : in std_logic:
@@ -95,6 +168,18 @@ clk : in std_logic:
 SEG : out std_logic_vector(6 downto 0):
 
 AN : out std_logic_vector (7 downto 0):
+```
+process(s)
+begin
+AN<="11111111";
+if aen(conv_integer(unsigned(s))) = '1' then
+AN(conv_integer(unsigned(s)))<='0';
+end if;
+end process;
+end architecture;
+```
+This code continuously toggles the anode to be off (from the all one's s signal), thus allowing the board to be persistently on. The anode being '1' turns off the display segment. 
+
 DP : out std_logic:
 
 
