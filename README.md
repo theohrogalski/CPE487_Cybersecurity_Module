@@ -73,9 +73,14 @@ PS2_CLK : in std_logic:
 PS2_DATA:in std_logic:
 
 SEG : out std_logic_vector(6 downto 0:
+The SEG signal (fed into the constraints file) activates the various line segments present in the hexidecimal display, allowing the user to view the keyboard input on the hexadecimal output.
+
 
 AN  : out std_logic_vector(7 downto 0):
+The AN signal, fed into the AN signal in the constraints file, controls whether each segment in the 8 hexadecimal character display is on. 
+```
 
+```
 DP : out std_logic:
 
 UART_TXD : out std_logic:
