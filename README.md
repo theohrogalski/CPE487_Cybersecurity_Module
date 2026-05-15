@@ -3,15 +3,10 @@
 ## Introduction
 This project attempts to implement the SHA-256 hashing algorithm on a Nexys A7-100T FPGA using VHDL, with plaintexts entered using a USB keyboard and the output displayed through the VGA port on the FPGA.
 ## Expected Behavior 
-The expected behavior of the project is as shown below:
+The expected behavior of the project is as stated below:
 
 ### Written Description 
-The user connects a keyboard and monitor to the FPGA  using the keyboard’s USB cable and VGA HDMI Adapter respectively. Then, they may upload the code onto the board, and will be able to type an arbitrary 32 bit (8 hex characters, 4 bytes, 4 ASCII characters) into it. As they type, they will see both the inputted text from the keyboard on the screen in ASCII as well as the plaintext run through the well known SHA-256 hashing algorithm. The implementation here does not accurately match 
-
-
-
-
-
+The user connects a keyboard and monitor to the FPGA  using the keyboard’s USB cable and VGA HDMI Adapter respectively. Then, they may upload the code onto the board, and will be able to type an arbitrary 32 bit (8 hex characters, 4 bytes, 4 ASCII characters) into it. As they type, they will see both the inputted text from the keyboard on the screen in ASCII as well as the plaintext run through the well known SHA-256 hashing algorithm. The implementation here does not accurately match the exact output of the SHA-256 algorithm, though it still has chaotic output that could be used as a hashing algorithm.
 
 ## Background
 The SHA-256 hashing algorithm converts a plaintext into a 256-bit hash. Details on this process are available [here](https://www.boot.dev/blog/computer-science/how-sha-2-works-step-by-step-sha-256/#step-5---create-message-schedule-w). Implementing this algorithm on an FPGA requires the usage of a hardware design language, in this case VHDL. Convenient entry of plaintext is made possible by the usage of a peripheral keyboard. The result of the encoding may be displayed on the screen using the VGA port.
@@ -306,9 +301,6 @@ kdata``` :in std_logic: This is the PS2_DATA signal that takes in input from the
 ```vhdl
 keycodeout ```: out std_logic_vector(31 downto 0): This signal is the 32 bit vector that is fed into the SHA-256 Module and the displays on the board. To extend, merely change the 31 to a larger number (up to 140 bits).
 ```
-
-
-
 
 ## SHA-256 Module
 
