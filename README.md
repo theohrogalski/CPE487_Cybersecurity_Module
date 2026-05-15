@@ -62,8 +62,9 @@ CLK100MHZ : in std_logic: This signal is a 100MHz clock, inputted from the clock
 
 
 PS2_CLK : in std_logic: 
-
+The PS2_CLK is the clock that is outputted from the connected keyboard module. It is present in the constrainst file.
 PS2_DATA:in std_logic:
+The PS2_DATA std_logic signal is a singular bit that is the left most bit on the shift register data structure that handles the bit stream inputs.
 
 SEG : out std_logic_vector(6 downto 0:
 The SEG signal (fed into the constraints file) activates the various line segments present in the hexidecimal display, allowing the user to view the keyboard input on the hexadecimal output.
@@ -177,10 +178,86 @@ DP : out std_logic:
 
 
 ### ps2receiver.vhd
-clk : in std_logic: 
-kclk : in std_logic: 
-kdata :in std_logic: 
-keycodeout : out std_logic_vector(31 downto 0): 
+#### Overall Description
+The code works in the following way, with comments interspered to explain steps:
+```vhdl
+if falling_edge(kclk) then
+    case(cnt) is
+-- the cnt variable is sequeuntially looped until it reaches 10, where it goes back
+    when 0 =>
+    cnt := cnt+1;
+--  when 0, the bit is ignored as it is the start bit of the keyboard data
+
+    when 1 => 
+    datacur(0)<=kdata;
+--  when 1 (and successive datas), the bit is shifted into the respective slot of datacur (this occurs for every bit in the PS2_DATA)
+
+    cnt:=cnt+1;
+
+    when 2 => 
+    datacur(1)<=kdata;    
+        cnt:=cnt+1;
+
+    when 3 => 
+    datacur(2)<=kdata;
+        cnt:=cnt+1;
+
+    when 4 =>
+     datacur(3)<=kdata;
+         cnt:=cnt+1;
+
+    when 5 =>
+     datacur(4)<=kdata;    
+     cnt:=cnt+1;
+
+    when 6 => 
+    datacur(5)<=kdata;
+        cnt:=cnt+1;
+
+    when 7 => 
+    datacur(6)<=kdata;
+        cnt:=cnt+1;
+
+    when 8 => 
+    datacur(7)<=kdata;
+        cnt:=cnt+1;
+
+    when 9 =>
+-- This checks if the variable release is greater than 0, meaning that it earlier encountered f0, which skips the extra f0XX. This is the filtration mechanism
+    if release /= 0 then release := release - 1;
+    end if;
+    if datacur = x"f0" then
+-- This sets the release variable (don't put in the datastream if the value is greater than 0)
+     release:=2;
+    end if;
+    
+    if release = 0 then
+ --    If the data is a new key presss and not part of the f0XX, it shifts the new byte into the last part of the keycode out, thus shifting the output in a controlled manner.
+-- to extend, simply change 31 to the size-1
+        dataprev <= datacur;
+        keycode <=  keycode(23 downto 0) & datacur;
+    
+    end if;
+    cnt:=cnt+1;
+    when 10 => 
+    cnt := 0;
+    
+    when others => null;
+    end case;
+    end if;
+end process;
+
+```
+#### Inputs & Outputs
+```vhdl
+clk : in std_logic```: 100 MHZ clock signal to coordinate synchronous processes in ps2receiver  
+```vhdl
+kclk ```: in std_logic: This is the 50MHZ clock 
+```vhdl
+kdata``` :in std_logic: This is the PS2_DATA signal that takes in input from the stream from the keyboard.
+```vhdl
+keycodeout ```: out std_logic_vector(31 downto 0): This signal is the 32 bit vector that is fed into the SHA-256 Module and the displays on the board. To extend, merely change the 31 to a larger number (up to 140 bits).
+
 
 
 
@@ -192,9 +269,9 @@ keycodeout : out std_logic_vector(31 downto 0):
 
 ## Summary of Development Process
 The project followed the proceeding structure, with each member contributing according to their interests:
-![image](Project_Flow.png)
+![image](Images/Project_Flow.png)
 Timeline:
-![image][CPE487_Table.png]
+![image][Images/CPE487_Table.png]
 
 Difficulties Encountered:
 Many major difficulties were encountered in the course of the project, the first being the overly ambitious scope. The usage of a sending/receiving antenna for encrypting received messages and transmission presented excessive technical difficulties, which caused the project scope to be scrapped. The following challenges were the most notable for each module:
@@ -204,7 +281,7 @@ Many major difficulties were encountered in the course of the project, the first
 
 
 System Integration:
-![image][System_Integration.png]
+![image][Images/System_Integration.png]
 The above is a high-level description of the system, with the connections between the VHDL modules described.
 
 A description of the expected behavior of the project, attachments needed (speaker module, VGA connector, etc.), related images/diagrams, etc. (10 points of the Submission category)
