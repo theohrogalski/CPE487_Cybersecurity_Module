@@ -52,8 +52,18 @@ Filtration Mechanism
 The SHA-256 Module is meant to take in input of a 440-bit plaintext std_logic_vector (the plaintext allowed for one "chunk" in the SHA-256 algorithm) along with how many bits are used in the plaintext input as part of the message (the input bits_used unsigned(63 downto 0)) and output a deterministic but chaotic output that can be used to infer that the message that was hashed was not modified. It also takes as input a 100 MHz clk std_logic signal from crypto_head.vhd, a reset std_logic signal (mapped from btnr in crypto_head.vhd), and outputs hash_output as a std_logic_vector(255 downto 0). The code, in the state that it is being submitted, has an unidentified issue that makes the output chaotic, as the output of the SHA-256 algorithm, but not exactly the expected output of the SHA-256 algorithm.
 ### Major Modifications
 The SHA-256 module only consists of one file, sha256.vhd, but it contains an entire FSM that handles all the operations for the SHA-256 hashing algorithm.
+### sha256.vhd
+The inputs to sha256.vhd are shown more formally below:
+clk : IN STD_LOGIC - This determines the clk signal for the FSM.
+reset : IN STD_LOGIC - This serves as the signal to reset the FSM, its output, and its working variables and signals.
+plaintext : in std_logic_vector(439 downto 0) - This is the plaintext that is meant to be hashed by the SHA-256 algorithm.
+bits_used : in unsigned(63 downto 0) - This is an unsigned that communincates that amount of bits in the plaintext. Oftentimes in SHA256 implementations this is a multiple of 8, as that is the length UTF-8 characters.  
+btn0 : IN STD_LOGIC - This dictates the exiting of the "READY" state and the execution of the hashing algorithm.
+hash_output : out std_logic_vector(255 downto 0) - This is the hash output, being 256 bits long.
+
 Shown below is a diagram of the curret state of the FSM.
 <img width="836" height="600" alt="sha256-FSM-Diagram" src="https://github.com/user-attachments/assets/c98052b3-c279-42e8-a215-18fded05562e" />
+
 
 
 
