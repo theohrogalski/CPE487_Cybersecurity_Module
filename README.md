@@ -26,7 +26,6 @@ Below is a video of the current state of project being demonstrated. It starts i
 4. Once the bitstream has finished generating, click "Open Hardware Manager" and then “Program Device”
 5. Once device finishes programming, type on keyboard and watch as ASCII characters appear on the screen!
 6. The higher text is the input, and the lower text is the SHA256 output for it
-## Video below:
 
  ![image](System_Integration.png)
 High Level System Diagram
