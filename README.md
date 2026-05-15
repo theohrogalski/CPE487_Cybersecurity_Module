@@ -34,21 +34,13 @@ The SHA-256 hashing algorithm converts a plaintext into a 256-bit hash. Details 
 6. The higher text is the input, and the lower text is the SHA256 output for it
 ## Video below:
 
- 
+ ![image](System_Integration.png)
 High Level System Diagram
- 
+ ![image](FSM_SHA256.png)
+
 FSM For SHA 256 Module
   
-
-
-
-
-
-
-
-
-
-
+![image](Filtration_Mechanism_FSM.png)
 Filtration Mechanism
 
 
