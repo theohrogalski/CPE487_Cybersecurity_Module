@@ -12,7 +12,7 @@ The user connects a keyboard and monitor to the FPGA  using the keyboard’s USB
 The SHA-256 hashing algorithm converts a plaintext into a 256-bit hash. Details on this process are available [here](https://www.boot.dev/blog/computer-science/how-sha-2-works-step-by-step-sha-256/#step-5---create-message-schedule-w). Implementing this algorithm on an FPGA requires the usage of a hardware design language, in this case VHDL. Convenient entry of plaintext is made possible by the usage of a peripheral keyboard. The result of the encoding may be displayed on the screen using the VGA port.
 ## Tutorial
 Below is a video of the current state of project being demonstrated. It starts in the READY state, which has all values set to all 0's, particularly the hash output, which is shown in the second line. The plaintext starts off as displaying as 4 percent signs (%%%%) as that is the error code character I have chosen as the plaintext is also all 0's. A message can be entered with the alphanumeric keys and the spacebar, and btn0 allows for the plaintext to be hashed. Clicking btnr resets the hash output, but not the plaintext.
-[https://drive.google.com/file/d/1Fnyb6_yCdpOtQPANX4ZzTE75Fhbq51t1/view?usp=sharing](url)
+[https://drive.google.com/file/d/1Fnyb6_yCdpOtQPANX4ZzTE75Fhbq51t1/view?usp=sharing](https://drive.google.com/file/d/1Fnyb6_yCdpOtQPANX4ZzTE75Fhbq51t1/view?usp=sharing)
 # Parts Needed
 1. Nexys A7-100T FPGA Board
 2. VGA-HDMI Connector (Ventron Brand confirmed working)
