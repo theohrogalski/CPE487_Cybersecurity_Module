@@ -1,7 +1,7 @@
 # cpe_487_finalProject_csecModule
 *Theodore Rogalski, Ryan Manley, Mircea Florescu*
 ## Introduction
-This project implements the SHA-256 hashing algorithm on a Nexys A7-100T FPGA using VHDL, with plaintexts entered using a USB keyboard and the output displayed through the VGA port on the FPGA.
+This project attempts to implement the SHA-256 hashing algorithm on a Nexys A7-100T FPGA using VHDL, with plaintexts entered using a USB keyboard and the output displayed through the VGA port on the FPGA.
 ## Expected Behavior 
 The expected behavior of the system is as follows, first in sentences and then in bullet points.
 
