@@ -96,8 +96,8 @@ UART_TXD - The USB-RS232’s transmit pin
 ### Introduction 
 The keyboard module for this project is takes in data from a USB-coneccted keyboard and puts it into a 32 bit (32 bits chosen for full display on the seven segment display on the FPGA, could be arbitrarily increased) std_logic_vector. The purpose of this module is twofold: firstly to allow a user to enter a realistic message into the SSHA-256 algorithm, and secondly to allow future projects to forgo the use of buttons in their project's entirely. This code is adpated from [this online demo project](https://digilent.com/reference/programmable-logic/nexys-a7/demos/keyboard?srsltid=AfmBOoqqI4njcBqFtA0dqAeLQ5OywOiShAH1nz5cMmf3-alkugWLdGOD). However, the original code had two issues: firstly, that it was written in verilog and the final project was meant to be in VHDL and that instead of simply shifting a code XX corresponding to the keyboard key pressed into the vector, an additional code F0XX was shifted upon button release. Thus, this module filters out those extra statements. 
 ### Major Modifications
-
-
+The added output to this section is the filtration of the f0 from the f0xx signals that are sent during release of the keys. The added input, while not a signal is the release variable which is used to ensure that the module is not outputting filtered data.
+### Input & Output
 The keyboard module, at a high level, consists of the following inputs, outputs: 
 
 ### top.vhd
