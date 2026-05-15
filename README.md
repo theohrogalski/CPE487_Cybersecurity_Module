@@ -66,7 +66,41 @@ Shown below is a diagram of the curret state of the FSM.
 
 
 
-## VGA Module
+## VGA Module 
+### Overall Description
+The VGA module starts with a large font array declaration, where each element of the array is a set of vectors defining the 5 by 7 character (where 0 is a blank pixel and 1 is a turned on pixel). Then, four helper functions are defined: iso8859_to_font, hex_digit_to_font, get_char_bit, and get_digit_char. iso8859_to_font defines a case converting the 26 uppercase letters, 10 digits, certain punctuation, and the spacebar character. The function uses the ISO 8859 standard for encoding the letters, as those are the received outputs from the keyboard. The hex_digit_to_font function converts an input hex digit to the requisite character for ease of user access (the get_digit_char function also does this, but for the decimal digits). Finally, the get_char_bit function retrieves the bits from a given array member. 
+The actual VGA outputting is handled by the text_draw process, which is relatively simple. There are two if statements outputting to two separate levels of the screen. One if statement outputs the input plaintext from the keyboard, and the other outputs the hash output of the encryption module. If someone were to expand on this project in the future, a good place to start would be to add compatibility for an arbitrarily long text output, with some requisite method of scrolling through the output.
+
+A summary of the steps to get the project to work in Vivado and on the Nexys board (5 points of the Submission category)
+
+
+
+### Inputs & Outputs
+Inputs: 
+Clock: 
+100MHZCLK - A 100 MHz clock coming from the board
+
+USB HID: 
+PS2_CLK - The board’s built-in clock for the USB-A port (which is also referred to as the PS/2 port in the board’s master constraints file)
+PS2_DATA - The data input from the USB-A port
+
+
+
+7-Segment Display: 
+SEG[6:0] - An array containing the seven segments for any given anode of the built-in display
+DP - Decimal point for the array (unused for our purposes)
+AN[7:0] - The anodes corresponding to each of the eight digits of the display
+
+VGA Connector: 
+VGA_R[3:0] - The four bits of the red output for the VGA connector
+VGA_G[3:0] - The four bits of the green output for the VGA connector
+VGA_B[3:0] - The four bits of the blue output for the VGA connector
+VGA_HS - The horizontal sync speed
+VGA_VS - the vertical sync speed
+
+USB-RS232 Interface: 
+UART_TXD - The USB-RS232’s transmit pin
+
 ## Keyboard Module
 ### Introduction 
 The keyboard module for this project is takes in data from a USB-coneccted keyboard and puts it into a 32 bit (32 bits chosen for full display on the seven segment display on the FPGA, could be arbitrarily increased) std_logic_vector. The purpose of this module is twofold: firstly to allow a user to enter a realistic message into the SSHA-256 algorithm, and secondly to allow future projects to forgo the use of buttons in their project's entirely. This code is adpated from [this online demo project](https://digilent.com/reference/programmable-logic/nexys-a7/demos/keyboard?srsltid=AfmBOoqqI4njcBqFtA0dqAeLQ5OywOiShAH1nz5cMmf3-alkugWLdGOD). However, the original code had two issues: firstly, that it was written in verilog and the final project was meant to be in VHDL and that instead of simply shifting a code XX corresponding to the keyboard key pressed into the vector, an additional code F0XX was shifted upon button release. Thus, this module filters out those extra statements. 
