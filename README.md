@@ -324,7 +324,8 @@ UART_TXD - The USB-RS232’s transmit pin
 The project followed the proceeding structure, with each member contributing according to their interests:
 ![image](Images/Project_Flow.png)
 Timeline:
-![image][Images/CPE487_Table.png]
+
+![image](Images/CPE487_Table.png)
 
 Difficulties Encountered:
 Many major difficulties were encountered in the course of the project, the first being the overly ambitious scope. The usage of a sending/receiving antenna for encrypting received messages and transmission presented excessive technical difficulties, which caused the project scope to be scrapped. The following challenges were the most notable for each module:
