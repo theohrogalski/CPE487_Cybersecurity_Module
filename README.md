@@ -79,7 +79,7 @@ UART_TXD converts the parallel bit stream coming from the keyboard into a std_si
 Seg7display.vhd
 x : in std_logic_vector(31 downto 0): 
 The x vector represents the keycode data. It uses the digit variable, which loops through each four bit portion of x. 
-```
+```vhdl
 process(clk) 
 variable digit : std_logic_vector(3 downto 0);
 
