@@ -48,7 +48,7 @@ Filtration Mechanism
 
 # Input, Output Description for Each Module 
 ## SHA-256 Module
-The SHA-256 Module is meant to take in input of a 440-bit plaintext (the plaintext allowed for one "chunk" in the SHA-256 algorithm)
+The SHA-256 Module is meant to take in input of a 440-bit plaintext std_logic_vector (the plaintext allowed for one "chunk" in the SHA-256 algorithm) along with how many bits are used in the plaintext input as part of the message (the input bits_used unsigned(63 downto 0)) and output a deterministic but chaotic output that can be used to infer that the message that was hashed was not modified. It also takes as input a 100 MHz clk std_logic signal from crypto_head.vhd, a reset std_logic signal (mapped from btnr in crypto_head.vhd), and outputs hash_output as a std_logic_vector(255 downto 0). The code, in the state that it is being submitted, has an unidentified issue that makes the output chaotic, as the output of the SHA-256 algorithm, but not exactly the expected output of the SHA-256 algorithm.
 ## VGA Module
 ## Keyboard Module
 ### Introduction 
@@ -187,6 +187,8 @@ keycodeout : out std_logic_vector(31 downto 0):
 
 
 ## SHA-256 Module
+
+
 ## VGA Module
 
 
