@@ -66,15 +66,11 @@ Shown below is a diagram of the curret state of the FSM.
 
 
 
-## VGA Module 
-### Overall Description
-The VGA module starts with a large font array declaration, where each element of the array is a set of vectors defining the 5 by 7 character (where 0 is a blank pixel and 1 is a turned on pixel). Then, four helper functions are defined: iso8859_to_font, hex_digit_to_font, get_char_bit, and get_digit_char. iso8859_to_font defines a case converting the 26 uppercase letters, 10 digits, certain punctuation, and the spacebar character. The function uses the ISO 8859 standard for encoding the letters, as those are the received outputs from the keyboard. The hex_digit_to_font function converts an input hex digit to the requisite character for ease of user access (the get_digit_char function also does this, but for the decimal digits). Finally, the get_char_bit function retrieves the bits from a given array member. 
+## VGA Module
+The VGA module starts with a large font array declaration, where each element of the array is a set of vectors defining the 5 by 7 character (where 0 is a blank pixel and 1 is a turned on pixel). Then, four helper functions are defined: iso8859_to_font, hex_digit_to_font, get_char_bit, and get_digit_char. iso8859_to_font defines a case converting the 26 uppercase letters, 10 digits, certain punctuation, and the spacebar character. The function uses the ISO 8859 standard for encoding the letters, as those are the received outputs from the keyboard. The hex_digit_to_font function converts an input hex digit to the requisite character for ease of user access (the get_digit_char function also does this, but for the decimal digits). Finally, the get_char_bit function retrieves the bits from a given array member.  
 The actual VGA outputting is handled by the text_draw process, which is relatively simple. There are two if statements outputting to two separate levels of the screen. One if statement outputs the input plaintext from the keyboard, and the other outputs the hash output of the encryption module. If someone were to expand on this project in the future, a good place to start would be to add compatibility for an arbitrarily long text output, with some requisite method of scrolling through the output.
-
-A summary of the steps to get the project to work in Vivado and on the Nexys board (5 points of the Submission category)
-
-
-
+### Major Modifications
+The main file of the VGA Module (vga_font.vhd) is primarily built off of [a previous year's Galaga project](https://github.com/michaelmosch15/CPE487galaga/blob/main/galaga.srcs/sources_1/new/galaga_game.vhd), siphoning off the relevant text drawing capacity (involving the character array and method for drawing to the screen).
 ### Inputs & Outputs
 Inputs: 
 Clock: 
